@@ -1,13 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_todo_simple/app/domain/entities/visibility_filter.dart';
-import 'package:flutter_todo_simple/app/domain/usecases/add_todo_usecase.dart';
-import 'package:flutter_todo_simple/app/domain/usecases/clear_complete_todo_usecase.dart';
-import 'package:flutter_todo_simple/app/domain/usecases/delete_todo_usecase.dart';
-import 'package:flutter_todo_simple/app/domain/usecases/get_todo_list_usecase.dart';
-import 'package:flutter_todo_simple/app/domain/usecases/toggle_todo_usecase.dart';
-import 'package:flutter_todo_simple/app/view/bloc/todo/todo_event.dart';
-import 'package:flutter_todo_simple/app/view/bloc/todo/todo_state.dart';
+import 'package:flutter_todo_simple/app/domain/usecases/usecases.dart';
+import 'package:flutter_todo_simple/app/view/bloc/blocs.dart';
 import 'package:flutter_todo_simple/core/error/failures.dart';
 import 'package:flutter_todo_simple/core/usecases/usecase.dart';
 import 'package:meta/meta.dart';

@@ -1,5 +1,4 @@
 import 'package:dartz/dartz.dart';
-import 'package:equatable/equatable.dart';
 import 'package:flutter_todo_simple/app/domain/entities/todo.dart';
 import 'package:flutter_todo_simple/app/domain/repositories/todo_repository.dart';
 import 'package:flutter_todo_simple/core/error/failures.dart';

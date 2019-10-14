@@ -2,11 +2,12 @@ import 'package:flutter_todo_simple/app/data/datasources/todo_local_datasource.d
 import 'package:flutter_todo_simple/app/data/models/todo_model.dart';
 import 'package:flutter_todo_simple/app/data/repositories/todo_repository_impl.dart';
 import 'package:flutter_todo_simple/app/domain/repositories/todo_repository.dart';
-import '../app/domain/usecases/usecases.dart';
 import 'package:flutter_todo_simple/app/view/bloc/todo/todo_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
+
+import '../app/domain/usecases/usecases.dart';
 
 final sl = GetIt.instance;
 
