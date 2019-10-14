@@ -6,6 +6,8 @@ import 'package:meta/meta.dart';
 
 part 'todo_model.g.dart';
 
+const String todoModelHiveName = "TodoModelHive";
+
 @HiveType()
 class TodoModel extends Equatable {
   @HiveField(0)
@@ -25,6 +27,10 @@ class TodoModel extends Equatable {
 
   Todo fromModel() {
     return Todo(id: id, text: text, completed: completed);
+  }
+
+  TodoModel toggle() {
+    return TodoModel(id: this.id, text: this.text, completed: !this.completed);
   }
 
   @override

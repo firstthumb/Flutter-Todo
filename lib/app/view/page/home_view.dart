@@ -8,6 +8,8 @@ import 'package:flutter_todo_simple/app/view/bloc/todo/todo_state.dart';
 import 'package:flutter_todo_simple/app/view/widget/appbar.dart';
 import 'package:flutter_todo_simple/app/view/widget/sliver_delegate.dart';
 
+import '../../domain/entities/visibility_filter.dart';
+
 class HomeView extends StatefulWidget {
   @override
   _HomeViewState createState() => _HomeViewState();
@@ -15,7 +17,6 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> {
   TextEditingController _titleController;
-  bool _filter;
 
   @override
   void initState() {
@@ -74,34 +75,43 @@ class _HomeViewState extends State<HomeView> {
         decoration: BoxDecoration(
             color: Theme.of(context).canvasColor,
             border: Border(top: borderSide, bottom: borderSide)),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            _buildToggleButton(
-              context: context,
-              text: "All",
-              onPressed: () => updateFilter(null),
-              focus: _filter == null,
-            ),
-            _buildToggleButton(
-              context: context,
-              text: "Active",
-              onPressed: () => updateFilter(true),
-              focus: _filter == true,
-            ),
-            _buildToggleButton(
-              context: context,
-              text: "Completed",
-              onPressed: () => updateFilter(false),
-              focus: _filter == false,
-            ),
-          ],
-        ),
+        child: BlocBuilder<TodoBloc, TodoState>(
+            builder: (context, state) {
+              if (state is Loaded) {
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    _buildToggleButton(
+                      context: context,
+                      text: "All",
+                      onPressed: () => BlocProvider.of<TodoBloc>(context)
+                          .dispatch(GetTodoListEvent(filter: VisibilityFilter.all)),
+                      focus: state.filter == VisibilityFilter.all,
+                    ),
+                    _buildToggleButton(
+                      context: context,
+                      text: "Active",
+                      onPressed: () => BlocProvider.of<TodoBloc>(context)
+                          .dispatch(GetTodoListEvent(filter: VisibilityFilter.active)),
+                      focus: state.filter == VisibilityFilter.active,
+                    ),
+                    _buildToggleButton(
+                      context: context,
+                      text: "Completed",
+                      onPressed: () => BlocProvider.of<TodoBloc>(context)
+                          .dispatch(GetTodoListEvent(filter: VisibilityFilter.completed)),
+                      focus: state.filter == VisibilityFilter.completed,
+                    ),
+                  ],
+                );
+              } else {
+                return Container();
+              }
+            }
+          )
       ),
     );
   }
-
-  void updateFilter(bool filter) => this.setState(() => _filter = filter);
 
   Widget _buildBodyContent(BuildContext context) {
     return Padding(

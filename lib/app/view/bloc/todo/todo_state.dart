@@ -1,6 +1,7 @@
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter_todo_simple/app/domain/entities/todo.dart';
+import 'package:flutter_todo_simple/app/domain/entities/visibility_filter.dart';
 import 'package:meta/meta.dart';
 
 @immutable
@@ -14,10 +15,12 @@ class Loading extends TodoState {}
 
 class Loaded extends TodoState {
   final List<Todo> todos;
+  final VisibilityFilter filter;
 
   Loaded({
-    @required this.todos
-  }) : super([todos]);
+    @required this.todos,
+    this.filter = VisibilityFilter.all,
+  }) : super([todos, filter]);
 }
 
 class Error extends TodoState {

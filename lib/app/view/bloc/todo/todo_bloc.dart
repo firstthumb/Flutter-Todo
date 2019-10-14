@@ -1,78 +1,89 @@
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
+import 'package:flutter_todo_simple/app/domain/entities/visibility_filter.dart';
 import 'package:flutter_todo_simple/app/domain/usecases/add_todo_usecase.dart';
+import 'package:flutter_todo_simple/app/domain/usecases/clear_complete_todo_usecase.dart';
+import 'package:flutter_todo_simple/app/domain/usecases/delete_todo_usecase.dart';
 import 'package:flutter_todo_simple/app/domain/usecases/get_todo_list_usecase.dart';
+import 'package:flutter_todo_simple/app/domain/usecases/toggle_todo_usecase.dart';
 import 'package:flutter_todo_simple/app/view/bloc/todo/todo_event.dart';
 import 'package:flutter_todo_simple/app/view/bloc/todo/todo_state.dart';
 import 'package:flutter_todo_simple/core/error/failures.dart';
 import 'package:flutter_todo_simple/core/usecases/usecase.dart';
 import 'package:meta/meta.dart';
 
+import '../../../domain/entities/todo.dart';
+
 class TodoBloc extends Bloc<TodoEvent, TodoState> {
   final GetTodoListUseCase getTodoList;
   final AddTodoUseCase addTodo;
+  final DeleteTodoUseCase deleteTodo;
+  final ToggleTodoUseCase toggleTodo;
+  final ClearCompletedTodoUseCase clearCompletedTodo;
 
-  TodoBloc({@required this.getTodoList, @required this.addTodo});
+  TodoBloc({
+    @required this.getTodoList,
+    @required this.addTodo,
+    @required this.deleteTodo,
+    @required this.toggleTodo,
+    @required this.clearCompletedTodo,
+  });
 
   @override
-  TodoState get initialState {
-    print("***** TodoBloc initialState");
-    return Empty();
-  }
+  TodoState get initialState => Empty();
 
   @override
   Stream<TodoState> mapEventToState(TodoEvent event) async* {
-    print("***** TodoBloc mapEventToState $event");
-
     if (event is GetTodoListEvent) {
       yield Loading();
-//      final result = await getTodoList(NoParams());
-//      yield* result.fold(
-//              (failure) => Error(message: "Error"),
-//              (todoList) => Loaded(todos: todoList),
-//      );
-//      yield* _eitherLoadedOrErrorState(result);
-
-
-      yield* (await getTodoList(NoParams())).fold(
-          (failure) async* {
-            print("***** getTodo Failure $failure");
-            yield Error(message: "");
-          },
-          (todoList) async* {
-            print("***** getTodo success $todoList");
-            yield Loaded(todos: todoList);
-          }
-      );
+      yield* _mapLoadTodoToState(await getTodoList(GetTodoListParam(filter: event.filter)), event.filter);
     } else if (event is AddTodoEvent) {
       yield Loading();
-      final eitherFailOrList = await addTodo.call(Params(text: event.text));
-      yield* eitherFailOrList.fold(
-          (failure) async* {
-            print("***** addTodo Failure $failure");
-            yield Error(message: "");
-          },
-          (todoList) async* {
-            print("***** addTodo success $todoList");
-            yield Loaded(todos: todoList);
-          }
-      );
-//      yield* (await addTodo(Params(text: event.text))).fold(
-//          (failure) async* {
-//            yield Error(message: "");
-//          },
-//          (todoList) async* {
-//            yield Loaded(todos: todoList);
-//          }
-//      );
+      yield* _mapAddTodoToState(await addTodo(AddTodoParam(text: event.text)), event.filter);
+    } else if (event is ToggleTodoEvent) {
+      yield Loading();
+      yield* _mapToggleTodoToState(await toggleTodo(ToggleTodoParam(id: event.id)), event.filter);
+    } else if (event is DeleteTodoEvent) {
+      yield Loading();
+      yield* _mapDeleteTodoToState(await deleteTodo(DeleteTodoParam(id: event.id)), event.filter);
+    } else if (event is ClearCompletedEvent) {
+      yield Loading();
+      yield* _mapClearCompletedTodoToState(await clearCompletedTodo(NoParams()), event.filter);
     }
   }
 
-//  Stream<TodoState> _eitherLoadedOrErrorState(Either<Failure, List<Todo>> failureOrTrivia,
-//      ) async* {
-//    yield failureOrTrivia.fold(
-//          (failure) => Error(message: "Error"),
-//          (todoList) => Loaded(todos: todoList),
-//    );
-//  }
+  Stream<TodoState> _mapLoadTodoToState(Either<Failure, List<Todo>> either, VisibilityFilter filter) async* {
+    yield either.fold(
+          (failure) => Error(message: "Load todo failed : $failure"),
+          (todoList) => Loaded(todos: todoList, filter: filter),
+    );
+  }
+
+  Stream<TodoState> _mapAddTodoToState(Either<Failure, List<Todo>> either, VisibilityFilter filter) async* {
+    yield either.fold(
+          (failure) => Error(message: "Add todo failed : $failure"),
+          (todoList) => Loaded(todos: todoList, filter: filter),
+    );
+  }
+
+  Stream<TodoState> _mapToggleTodoToState(Either<Failure, List<Todo>> either, VisibilityFilter filter) async* {
+    yield either.fold(
+          (failure) => Error(message: "Toggle todo failed : $failure"),
+          (todoList) => Loaded(todos: todoList, filter: filter),
+    );
+  }
+
+  Stream<TodoState> _mapDeleteTodoToState(Either<Failure, List<Todo>> either, VisibilityFilter filter) async* {
+    yield either.fold(
+          (failure) => Error(message: "Delete todo failed : $failure"),
+          (todoList) => Loaded(todos: todoList, filter: filter),
+    );
+  }
+
+  Stream<TodoState> _mapClearCompletedTodoToState(Either<Failure, List<Todo>> either, VisibilityFilter filter) async* {
+    yield either.fold(
+          (failure) => Error(message: "Clear completed todo failed : $failure"),
+          (todoList) => Loaded(todos: todoList, filter: filter),
+    );
+  }
 }

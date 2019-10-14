@@ -7,4 +7,8 @@ abstract class UseCase<Type, Params> {
   Future<Either<Failure, Type>> call(Params params);
 }
 
-class NoParams extends Equatable {}
+class Params extends Equatable {
+  Params([List props = const <dynamic>[]]) : super(props);
+}
+
+class NoParams extends Params {}

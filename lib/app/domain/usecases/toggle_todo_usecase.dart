@@ -1,23 +1,24 @@
 import 'package:dartz/dartz.dart';
+import 'package:equatable/equatable.dart';
 import 'package:flutter_todo_simple/app/domain/entities/todo.dart';
 import 'package:flutter_todo_simple/app/domain/repositories/todo_repository.dart';
 import 'package:flutter_todo_simple/core/error/failures.dart';
 import 'package:flutter_todo_simple/core/usecases/usecase.dart';
 import 'package:meta/meta.dart';
 
-class AddTodoUseCase implements UseCase<List<Todo>, AddTodoParam> {
+class ToggleTodoUseCase implements UseCase<List<Todo>, ToggleTodoParam> {
   final TodoRepository repository;
 
-  AddTodoUseCase({@required this.repository});
+  ToggleTodoUseCase({@required this.repository});
 
   @override
-  Future<Either<Failure, List<Todo>>> call(AddTodoParam params) async {
-    return await repository.addTodo(Todo(text: params.text, completed: false));
+  Future<Either<Failure, List<Todo>>> call(ToggleTodoParam params) async {
+    return await repository.toggleTodo(params.id);
   }
 }
 
-class AddTodoParam extends Params {
-  final String text;
+class ToggleTodoParam extends Params {
+  final String id;
 
-  AddTodoParam({@required this.text}) : super([text]);
+  ToggleTodoParam({@required this.id}) : super([id]);
 }

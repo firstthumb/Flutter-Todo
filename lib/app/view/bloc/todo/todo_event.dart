@@ -10,7 +10,7 @@ abstract class TodoEvent extends Equatable {
 class GetTodoListEvent extends TodoEvent {
   final VisibilityFilter filter;
 
-  GetTodoListEvent({@required this.filter});
+  GetTodoListEvent({@required this.filter}) : super([filter]);
 
   @override
   String toString() => "GetTodoListEvent{ filter: $filter }";
@@ -18,32 +18,39 @@ class GetTodoListEvent extends TodoEvent {
 
 class AddTodoEvent extends TodoEvent {
   final String text;
+  final VisibilityFilter filter;
 
-  AddTodoEvent({this.text}) : super([text]);
+  AddTodoEvent({this.text, this.filter = VisibilityFilter.all}) : super([text, filter]);
 
   @override
-  String toString() => "AddTodoEvent{ text: $text }";
+  String toString() => "AddTodoEvent{ text: $text, filter: $filter }";
 }
 
 class ClearCompletedEvent extends TodoEvent {
+  final VisibilityFilter filter;
+
+  ClearCompletedEvent({this.filter = VisibilityFilter.all}) : super([filter]);
+
   @override
-  String toString() => "ClearCompletedEvent{ }";
+  String toString() => "ClearCompletedEvent{ filter: $filter }";
 }
 
 class ToggleTodoEvent extends TodoEvent {
   final String id;
+  final VisibilityFilter filter;
 
-  ToggleTodoEvent({@required this.id});
+  ToggleTodoEvent({@required this.id, this.filter = VisibilityFilter.all}) : super([id, filter]);
 
   @override
-  String toString() => "ToggleTodoEvent{ id: $id }";
+  String toString() => "ToggleTodoEvent{ id: $id, filter: $filter }";
 }
 
 class DeleteTodoEvent extends TodoEvent {
   final String id;
+  final VisibilityFilter filter;
 
-  DeleteTodoEvent({@required this.id});
+  DeleteTodoEvent({@required this.id, this.filter = VisibilityFilter.all}) : super([id, filter]);
 
   @override
-  String toString() => "DeleteTodoEvent{ id: $id }";
+  String toString() => "DeleteTodoEvent{ id: $id, filter: $filter }";
 }
