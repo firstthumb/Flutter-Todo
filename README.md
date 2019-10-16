@@ -6,7 +6,12 @@ Simple Offline Todo App
  * Custom photo feed based on who you follow (using firebase cloud functions)
 
 ## Screenshots
-![MainPageScreenshot](https://user-images.githubusercontent.com/66023/66942629-2a597100-f052-11e9-9094-ffc9d2377c7d.png)
+
+<p>
+<img src="https://user-images.githubusercontent.com/66023/66942629-2a597100-f052-11e9-9094-ffc9d2377c7d.png" alt="Mainpage1" width="250" />
+<img src="https://user-images.githubusercontent.com/66023/66943276-78bb3f80-f053-11e9-8970-1fa4c81718b0.png" alt="Mainpage2" width="250" />
+<img src="https://user-images.githubusercontent.com/66023/66943279-79ec6c80-f053-11e9-82bf-019a7e3bae31.png" alt="Mainpage3" width="250" />
+</p>
 
 ## Dependencies
 
