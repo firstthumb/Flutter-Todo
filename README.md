@@ -1,6 +1,8 @@
 # Flutter Todo App
 Simple Offline Todo App
 
+It runs offline and It uses [Hive](https://github.com/hivedb/hive) as local datastore
+
 ## Screenshots
 
 <p>
@@ -19,6 +21,7 @@ Simple Offline Todo App
 * [Equatable](https://github.com/felangel/equatable)
 * [Dartz](https://github.com/spebbe/dartz)
 * [Hive Flutter](https://github.com/leisim/hive)
+* [Hive](https://github.com/hivedb/hive)
 
 ## Getting started
 
@@ -33,3 +36,8 @@ $ cd Flutter-Todo/
 ```
 
 #### 3. Launch with Android Studio
+
+#### 4. If you update Hive Model, run build_runner
+```sh
+$ flutter packages pub run build_runner build
+```
