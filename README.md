@@ -1,16 +1,34 @@
-# flutter_todo_simple
+# Flutter Todo App
+Simple Offline Todo App
 
-A new Flutter application.
+## Features
 
-## Getting Started
+ * Custom photo feed based on who you follow (using firebase cloud functions)
 
-This project is a starting point for a Flutter application.
+## Screenshots
+![MainPageScreenshot](https://user-images.githubusercontent.com/66023/66942629-2a597100-f052-11e9-9094-ffc9d2377c7d.png)
 
-A few resources to get you started if this is your first Flutter project:
+## Dependencies
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+* [Flutter](https://flutter.io/)
+* [UUID](https://github.com/Daegalus/dart-uuid)
+* [Path Provider](https://github.com/flutter/plugins/tree/master/packages/path_provider)
+* [Intl](https://github.com/dart-lang/intl)
+* [Get It](https://github.com/fluttercommunity/get_it)
+* [Equatable](https://github.com/felangel/equatable)
+* [Dartz](https://github.com/spebbe/dartz)
+* [Hive Flutter](https://github.com/leisim/hive)
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Getting started
+
+
+#### 1. [Setup Flutter](https://flutter.io/setup/)
+
+#### 2. Clone the repo
+
+```sh
+$ git clone https://github.com/firstthumb/Flutter-Todo.git
+$ cd Flutter-Todo/
+```
+
+#### 3. Launch with Android Studio

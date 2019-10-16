@@ -10,8 +10,6 @@ dependencies:
   flutter:
     sdk: flutter
 
-  cupertino_icons: ^0.1.2
-
   intl: ^0.15.8
   get_it: ^2.0.1
   flutter_bloc: ^0.21.0
