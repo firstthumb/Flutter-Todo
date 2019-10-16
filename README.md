@@ -1,10 +1,6 @@
 # Flutter Todo App
 Simple Offline Todo App
 
-## Features
-
- * Custom photo feed based on who you follow (using firebase cloud functions)
-
 ## Screenshots
 
 <p>
